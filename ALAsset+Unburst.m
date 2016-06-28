@@ -73,8 +73,6 @@ static NSString * const kGUIDKey = @"11";
     for (PHAsset *burstAsset in burstAssets) {
         dispatch_semaphore_wait(burstSemaphore, DISPATCH_TIME_FOREVER);
 
-        CBCustomLogger(CB_LOG_TYPE_DEBUG, @"Add burst asset");
-
         NSString *burstURLStr = [NSString stringWithFormat:@"assets-library://asset/asset.JPG?id=%@&ext=JPG",
                                                            [burstAsset.localIdentifier substringToIndex:36]];
         NSURL *burstURL = [NSURL URLWithString:burstURLStr];
@@ -85,14 +83,12 @@ static NSString * const kGUIDKey = @"11";
             }
             failureBlock:^(NSError *error) {
                 dispatch_semaphore_signal(burstSemaphore);
-                CBCustomLogger(CB_LOG_TYPE_DEBUG, @"Request image for asset failed: %@", error.description);
             }];
     }
 
     dispatch_semaphore_wait(burstSemaphore, DISPATCH_TIME_FOREVER);
     dispatch_release(burstSemaphore);
 
-    CBCustomLogger(CB_LOG_TYPE_DEBUG, @"Return from fetchBurstAssetsWithHandler");
     return;
 }
 
