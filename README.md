@@ -6,7 +6,7 @@ The handler for assets from the bursts is called synchronously so fetchBurstAsse
 
 Example:
 
-```
+```objectivec
 static ALAssetsLibrary *library = nil;
 static NSMutableDictionary *burstIDsCache = nil;
 
